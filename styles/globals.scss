@@ -3,6 +3,14 @@
 * {
   font-family: Biennale Regular;
   font-size: 14px;
+  width: 200px;
+}
+
+.avatar {
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 @import "../public/fonts/fonts.scss";
+@import "../components/button/button.scss";
+@import "../components/avatar/avatar.scss";
