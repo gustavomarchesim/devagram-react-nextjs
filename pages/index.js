@@ -1,14 +1,18 @@
-import Avatar from "@/components/avatar";
-import Button from "@/components/button";
+import Avatar from "../components/avatar";
+import Button from "../components/button";
+import {UploadImagem} from '../components/upload';
+
 export default function Home() {
   return (
     <>
       <h1>Olá, mundo</h1>
-      <Avatar/>
-      <Button
-        text={"Login"}
-        onClick={() => console.log("Botão clicado!")}
-      ></Button>
+      <UploadImagem />
+      <div style={{width: 200}}>
+        <Avatar />
+        <Button 
+          text={"Login"} 
+          onClick={() => console.log("Botão clicado!")} />
+      </div>
     </>
   );
 }

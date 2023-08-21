@@ -11,6 +11,10 @@
   object-fit: cover;
 }
 
+.oculto{
+  display: none;
+}
+
 @import "../public/fonts/fonts.scss";
 @import "../components/button/button.scss";
 @import "../components/avatar/avatar.scss";
