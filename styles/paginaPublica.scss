@@ -1,0 +1,81 @@
+.paginaPublica {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+
+  .logoContainer {
+    position: relative;
+    height: 13%;
+    width: 100%;
+    margin-bottom: 50px;
+  }
+
+  .paginaPublicaConteudo {
+    width: 100%;
+  }
+
+  .btn {
+    padding: 12px;
+    margin-top: 15px;
+  }
+
+  .rodapePaginaPublica {
+    text-align: center;
+    margin-top: 24px;
+
+    p {
+      color: $cinza3;
+      margin: 0px 0px 2px;
+    }
+
+    a {
+      color: $corPrimaria;
+      font-family: $fontBold;
+    }
+  }
+
+  @media screen and (min-width: $desktopBreakpoint) {
+    font-size: 18px;
+    flex-direction: row;
+    padding: 0 140px;
+
+    .logoContainer {
+      height: 30%;
+      flex: 2;
+      margin-bottom: -30px;
+
+      .logo {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+
+    .paginaPublicaConteudo {
+      flex: 1;
+      border: 1px solid $corPrimaria;
+      border-radius: 26px;
+      padding: 50px;
+
+      .btn {
+        padding: 20px;
+        font-size: 18px;
+      }
+
+      .rodapePaginaPublica {
+        p,
+        a {
+          font-size: 18px;
+        }
+      }
+
+      .inputPublico {
+        input {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}

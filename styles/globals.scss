@@ -3,7 +3,13 @@
 * {
   font-family: Biennale Regular;
   font-size: 14px;
-  width: 200px;
+}
+
+html,
+body,
+#_next {
+  height: 100%;
+  margin: 0;
 }
 
 .avatar {
@@ -11,17 +17,23 @@
   object-fit: cover;
 }
 
-.uploadImagemContainer{
-  cursor: pointer;
-  position: relative;
-  height: 200px;
-  margin-top: -200px;
-}
+input{
+  &::placeholder{
+    color: $cinza2;
+    opacity: 1;
+  }
 
-.oculto{
-  opacity: 0
+  &:-ms-input-placeholder{
+    color: $cinza2;
+  }
+
+  &::-ms-input-placeholder{
+    color: $cinza2;
+  }
 }
 
 @import "../public/fonts/fonts.scss";
 @import "../components/button/button.scss";
 @import "../components/avatar/avatar.scss";
+@import "../styles/paginaPublica.scss";
+@import "../components/inputPublico/inputPublico.scss";
