@@ -1,0 +1,33 @@
+.paginaCadastro {
+  .logoContainer {
+    display: none;
+  }
+
+  @media screen and (min-width: $desktopBreakpoint) {
+    .logoContainer {
+      display: block;
+    }
+  }
+
+  .uploadImagemContainer {
+    position: relative;
+    text-align: center;
+    margin-bottom: 48px;
+
+    .avatarPreview {
+      height: 120px;
+      width: 120px;
+    }
+
+    &::after {
+      position: absolute;
+      content: url("/images/camera.svg");
+      right: 0px;
+      left: 83px;
+      bottom: -3px;
+      margin: auto;
+      width: 48px;
+      height: 48px;
+    }
+  }
+}

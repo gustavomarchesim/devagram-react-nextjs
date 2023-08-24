@@ -10,11 +10,16 @@ body,
 #_next {
   height: 100%;
   margin: 0;
+  overflow: hidden;
 }
 
 .avatar {
   border-radius: 50%;
   object-fit: cover;
+}
+
+.oculto{
+  display: none;
 }
 
 input{
@@ -37,3 +42,4 @@ input{
 @import "../components/avatar/avatar.scss";
 @import "../styles/paginaPublica.scss";
 @import "../components/inputPublico/inputPublico.scss";
+@import "../pages/cadastro/cadastro.scss"
