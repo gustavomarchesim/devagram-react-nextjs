@@ -11,6 +11,7 @@ import {
   validarNome,
   validarSenha,
 } from "../../utils/validadores";
+import UserService from "../../services/UserService";
 
 import imagemLogo from "../../public/images/logo.svg";
 import imagemEnvelope from "../../public/images/envelope.svg";
@@ -18,12 +19,15 @@ import imagemChave from "../../public/images/chave.svg";
 import imagemUsuario from "../../public/images/usuario.svg";
 import imagemAvatar from "../../public/images/avatar.svg";
 
+const userService = new UserService();
+
 export default function Cadastro() {
+  const [imagem, setImagem] = useState(null);
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [confirmaSenha, setConfirmacaoSenha] = useState("");
-  const [imagem, setImagem] = useState(null);
+  const [estaSubmetendo, setEstaSubmetendo] = useState(false);
 
   const validarFormulario = () => {
     return (
@@ -32,6 +36,31 @@ export default function Cadastro() {
       validarSenha(senha) &&
       validarConfirmacaoSenha(senha, confirmaSenha)
     );
+  };
+
+  const aoSubmeter = async (e) => {
+    e.preventDefault();
+    if (!validarFormulario) {
+      return;
+    }
+    setEstaSubmetendo(true);
+    try {
+      const corpoReqCadastro = new FormData();
+
+      corpoReqCadastro.append("nome", nome);
+      corpoReqCadastro.append("email", email);
+      corpoReqCadastro.append("senha", senha);
+
+      if (imagem?.arquivo) {
+        corpoReqCadastro.append("file", imagem.arquivo);
+      }
+
+      await userService.Cadastro(corpoReqCadastro);
+      alert("Sucesso no cadastro!");
+    } catch (error) {
+      alert("Erro ao cadastrar usuário! " + error?.response?.data?.erro);
+    }
+    setEstaSubmetendo(false);
   };
 
   return (
@@ -45,7 +74,7 @@ export default function Cadastro() {
         />
       </div>
       <div className="paginaPublicaConteudo">
-        <form>
+        <form onSubmit={aoSubmeter}>
           <div className="avatarContainer">
             <UploadImagem
               imagemPreviewClassName="avatar avatarPreview"
@@ -91,7 +120,11 @@ export default function Cadastro() {
               confirmaSenha && !validarConfirmacaoSenha(senha, confirmaSenha)
             }
           />
-          <Button text="Cadastro" type="submit" desabilitado={!validarFormulario()} />
+          <Button
+            text="Cadastro"
+            type="submit"
+            desabilitado={!validarFormulario() || estaSubmetendo}
+          />
         </form>
         <div className="rodapePaginaPublica">
           <p>Já possui uma conta?</p>

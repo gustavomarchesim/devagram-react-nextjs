@@ -5,17 +5,41 @@ import Link from "next/link";
 import Button from "../button";
 import InputPublico from "../inputPublico";
 import { validarEmail, validarSenha } from "../../utils/validadores";
+import UserService from "../../services/UserService";
 
 import imagemEnvelope from "../../public/images/envelope.svg";
 import imagemChave from "../../public/images/chave.svg";
 import imagemLogo from "../../public/images/logo.svg";
 
+const userService = new UserService();
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [estaSubmetendo, setEstaSubmetendo] = useState(false);
 
   const validarFormulario = () => {
     return validarEmail(email) && validarSenha(senha);
+  };
+
+  const aoSubmeter = async (e) => {
+    e.preventDefault();
+    if (!validarFormulario) {
+      return;
+    }
+
+    setEstaSubmetendo(true);
+
+    try {
+      await userService.Login({
+        login: email,
+        senha,
+      });
+    } catch (error) {
+      alert("Erro ao realizar Login! " + error?.response?.data?.erro);
+    }
+
+    setEstaSubmetendo(false);
   };
 
   return (
@@ -30,7 +54,7 @@ export default function Login() {
       </div>
 
       <div className="paginaPublicaConteudo">
-        <form>
+        <form onSubmit={aoSubmeter}>
           <InputPublico
             imagem={imagemEnvelope}
             placeholder="E-mail"
@@ -49,7 +73,11 @@ export default function Login() {
             mensagemValidacao="Usuário ou Senha inválido!"
             exibirMensagemValidacao={senha && !validarSenha(senha)}
           />
-          <Button text="Login" type="submit" desabilitado={!validarFormulario()} />
+          <Button
+            text="Login"
+            type="submit"
+            desabilitado={!validarFormulario() || estaSubmetendo}
+          />
         </form>
         <div className="rodapePaginaPublica">
           <p>Não possui uma conta?</p>
