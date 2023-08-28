@@ -13,7 +13,7 @@ import imagemLogo from "../../public/images/logo.svg";
 
 const userService = new UserService();
 
-export default function Login() {
+export default function Login({aposAutenticacao}) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [estaSubmetendo, setEstaSubmetendo] = useState(false);
@@ -35,6 +35,11 @@ export default function Login() {
         login: email,
         senha,
       });
+
+      if(aposAutenticacao){
+        aposAutenticacao();
+      }
+
     } catch (error) {
       alert("Erro ao realizar Login! " + error?.response?.data?.erro);
     }
