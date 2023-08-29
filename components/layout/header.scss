@@ -1,0 +1,64 @@
+.headerPrincipal {
+  border-bottom: 0.5px solid $cinza1;
+  .conteudoHeaderPrincipal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+
+    .logoHeaderPrincipal {
+      position: relative;
+      width: 140px;
+      height: 40px;
+    }
+
+    .barraPesquisa {
+      display: flex;
+      align-items: center;
+      position: relative;
+      flex: 1;
+      margin-left: 16px;
+
+      .containerImagemLupa {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        left: 8px;
+      }
+
+      input {
+        border-radius: 4px;
+        border: none;
+        background-color: $corPrimaria04;
+        outline: none;
+        font-size: 12px;
+        font-family: $fontLight;
+        padding: 8px 8px 8px 36px;
+        color: $corPrimaria;
+
+        &:focus {
+          border: 1px solid $corPrimaria;
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: $desktopBreakpoint) {
+    background-color: $branco;
+    border: none;
+    .conteudoHeaderPrincipal {
+      max-width: 60%;
+      margin: auto;
+      align-items: center;
+      justify-content: center;
+
+      .barraPesquisa{
+        flex: 0.45;
+        margin: 0px 16px 0px 64px;
+        input{
+          width: 100%;
+        }
+      }
+    }
+  }
+}

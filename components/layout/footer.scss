@@ -1,0 +1,10 @@
+.footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  background-color: $corPrimaria04;
+
+  .barraNavegacaoPrincipal ul {
+    justify-content: space-evenly;
+  }
+}
