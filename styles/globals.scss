@@ -1,4 +1,4 @@
-@import "variaveis.scss";
+@import 'variaveis.scss';
 
 * {
   font-family: Biennale Regular;
@@ -67,12 +67,17 @@ input {
   }
 }
 
-@import "../public/fonts/fonts.scss";
-@import "../components/button/button.scss";
-@import "../components/avatar/avatar.scss";
-@import "../styles/paginaPublica.scss";
-@import "../components/inputPublico/inputPublico.scss";
-@import "../pages/cadastro/cadastro.scss";
-@import "../components/layout/header.scss";
-@import "../components/layout/footer.scss";
+strong {
+  font-family: $fontBold;
+}
+span {
+  font-family: $fontLight;
+}
 
+@import '../public/fonts/fonts.scss';
+@import '../components/button/button.scss';
+@import '../styles/paginaPublica.scss';
+@import '../components/inputPublico/inputPublico.scss';
+@import '../pages/cadastro/cadastro.scss';
+@import '../components/layout/header.scss';
+@import '../components/layout/footer.scss';
