@@ -10,7 +10,6 @@ body,
 #_next {
   height: 100%;
   margin: 0;
-  overflow: hidden;
 }
 
 .avatar {
@@ -74,10 +73,25 @@ span {
   font-family: $fontLight;
 }
 
+body {
+  @media screen and (min-width: $desktopBreakpoint) {
+    background-color: $cinza5;
+    background-image: url(../public/images/fundoDesk.svg);
+  }
+}
+
+.larguraCentralDesktop {
+  @media screen and (min-width: $desktopBreakpoint) {
+    width: 33%;
+    margin: auto;
+  }
+}
+
 @import '../public/fonts/fonts.scss';
 @import '../components/button/button.scss';
 @import '../styles/paginaPublica.scss';
-@import '../components/inputPublico/inputPublico.scss';
 @import '../pages/cadastro/cadastro.scss';
+@import '../components/inputPublico/inputPublico.scss';
+@import '../components/feed/feed.scss';
 @import '../components/layout/header.scss';
 @import '../components/layout/footer.scss';

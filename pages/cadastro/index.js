@@ -17,7 +17,7 @@ import UserService from '../../services/UserService';
 import imagemLogo from '../../public/images/logo.svg';
 import imagemEnvelope from '../../public/images/envelope.svg';
 import imagemChave from '../../public/images/chave.svg';
-import imagemUsuario from '../../public/images/usuario.svg';
+import imagemUsuario from '../../public/images/usuario_fill.svg';
 import imagemAvatar from '../../public/images/avatar.svg';
 
 const userService = new UserService();
