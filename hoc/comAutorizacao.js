@@ -1,4 +1,5 @@
-import { useRouter } from 'next/router'; //Manipula as rotas
+import { useRouter } from 'next/router';
+
 import UserService from '../services/UserService';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';

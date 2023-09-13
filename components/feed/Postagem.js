@@ -2,32 +2,46 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+import { FazerComentario } from './FazerComentario';
 import Avatar from '../avatar';
 
 import imagemCurtida from '../../public/images/coracao.svg';
 import imagemCurtido from '../../public/images/coracao_fill.svg';
 import imagemComentario from '../../public/images/comentario.svg';
 import imagemComentado from '../../public/images/comentario_fill.svg';
-import { FazerComentario } from './fazerComentario';
 
 export default function Postagem({
-  user,
+  usuario,
   fotoDoPost,
   descricao,
   comentarios,
   usuarioLogado,
 }) {
   const [mostrarMais, setMostrarMais] = useState(false);
+  const [mostrarComentario, setMostrarComentario] = useState(false);
+  const [mostrarCurtida, setMostrarCurtida] = useState(true);
+
+  const handleClick = () => {
+    setMostrarComentario(!mostrarComentario);
+  };
+
   const texto = descricao;
   const textoExibido = mostrarMais ? texto : `${texto.substring(0, 93)}`;
 
-  const [mostrarComentario, setMostrarComentario] = useState(false);
+  const handleCurtida = () => {
+    setMostrarCurtida(!mostrarCurtida);
+  };
+
+  const comentar = (comentario) => {
+    console.log('comentario');
+  };
+
   return (
     <div className='postagem'>
-      <Link href={`/perfil/${user.id}`}>
+      <Link href={`/perfil/${usuario.id}`}>
         <section className='cabecalhoPostagem'>
-          <Avatar src={user.avatar} />
-          <strong>{user.nome}</strong>
+          <Avatar src={usuario.avatar} />
+          <strong>{usuario.nome}</strong>
         </section>
       </Link>
 
@@ -42,19 +56,19 @@ export default function Postagem({
         <div className='acoesRodapePostagem'>
           <Image
             className='imagemCurtida'
-            src={imagemCurtida}
+            src={mostrarCurtida ? imagemCurtida : imagemCurtido}
             alt='icone Curtir'
             width={20}
             height={20}
-            onClick={() => console.log('Curtir!')}
+            onClick={handleCurtida}
           />
           <Image
             className='imagemComentario'
-            src={imagemComentario}
+            src={mostrarComentario ? imagemComentado : imagemComentario}
             alt='icone comentário'
             width={20}
             height={20}
-            onClick={() => setMostrarComentario(!mostrarComentario)}
+            onClick={handleClick}
           />
 
           <span className='qntCurtidas'>
@@ -63,7 +77,7 @@ export default function Postagem({
         </div>
 
         <div className='descricaoPostagem'>
-          <strong className='nomeUsuario'>{user.nome}</strong>
+          <strong className='nomeUsuario'>{usuario.nome}</strong>
           <p className='descricao'>
             <span onClick={() => setMostrarMais(!mostrarMais)}>
               {textoExibido}
@@ -88,7 +102,12 @@ export default function Postagem({
         </div>
       </div>
 
-      {mostrarComentario && <FazerComentario usuarioLogado={usuarioLogado} />}
+      {mostrarComentario && (
+        <FazerComentario
+          usuarioLogado={usuarioLogado}
+          comentar={comentar}
+        />
+      )}
     </div>
   );
 }

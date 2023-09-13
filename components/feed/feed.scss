@@ -1,6 +1,7 @@
 .feedContainer {
   padding-bottom: 60px;
   background-color: $branco;
+
   .avatar {
     width: 32px;
     height: 32px;
@@ -12,7 +13,7 @@
     .cabecalhoPostagem {
       display: flex;
       align-items: center;
-      padding: 0px 12px;
+      padding: 8px 12px 0px;
       margin-bottom: 8px;
 
       strong {
@@ -39,8 +40,10 @@
       }
 
       p.descricao {
-        font-size: 12px;
         margin: 0 0 2px;
+        > span {
+          font-size: 12px;
+        }
       }
       .acoesRodapePostagem {
         display: flex;
@@ -68,6 +71,7 @@
       display: flex;
       align-items: center;
       padding: 0px 12px;
+      margin-top: 12px;
       margin-bottom: 16px;
       textarea {
         width: 100%;
@@ -76,6 +80,31 @@
         outline: none;
         resize: none;
         color: $cinza2;
+      }
+    }
+  }
+  @media screen and (min-width: $desktopBreakpoint) {
+    .postagem {
+      .rodapePostagem {
+        .acoesRodapePostagem {
+          > span {
+            cursor: pointer;
+          }
+        }
+      }
+      .containerFazerComentario {
+        .btnFeed {
+          border: none;
+          outline: none;
+          color: $corPrimaria;
+          cursor: pointer;
+          font-size: 12px;
+          background-color: transparent;
+        }
+      }
+      .avatar {
+        width: 42px;
+        height: 42px;
       }
     }
   }

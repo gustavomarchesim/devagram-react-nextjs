@@ -5,11 +5,15 @@ import Home from '../components/button/home';
 
 const userService = new UserService();
 export default function Index() {
-  const [estaAutenticado, setEstaAutenticado] = useState(false);
+  const [estaAutenticado, setEstaAutenticado] = useState(null);
 
   useEffect(() => {
     setEstaAutenticado(userService.estaAutenticado());
   }, []);
+
+  if (estaAutenticado === null) {
+    return null;
+  }
 
   if (estaAutenticado) {
     return <Home />;
