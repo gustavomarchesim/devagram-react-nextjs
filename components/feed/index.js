@@ -2,13 +2,16 @@ import { useEffect, useState } from 'react';
 
 import Postagem from './Postagem';
 import FeedService from '../../services/FeedService';
+import UserService from '../../services/UserService';
 
 const feedService = new FeedService();
-export function Feed({ usuarioLogado }) {
+const userService = new UserService();
+
+export function Feed() {
+  const usuarioLogado = userService.obterInformacoesDoUsuarioLogado();
   const [listaPostagens, setListaPostagens] = useState([]);
   useEffect(async () => {
     const { data } = await feedService.carregarPostagens();
-    console.log(data);
 
     const postagensFormatadas = data.map((postagem) => ({
       id: postagem._id,
@@ -27,7 +30,7 @@ export function Feed({ usuarioLogado }) {
     }));
 
     setListaPostagens(postagensFormatadas);
-  }, [usuarioLogado]);
+  }, []);
 
   return (
     <div className='feedContainer larguraCentralDesktop'>

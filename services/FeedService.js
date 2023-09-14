@@ -8,4 +8,10 @@ export default class FeedService extends HttpService {
     }
     return this.get(url);
   }
+
+  async adicionarComentario(idPostagem, comentario) {
+    return this.put(`/comentario?id=${idPostagem}`, {
+      comentario,
+    });
+  }
 }

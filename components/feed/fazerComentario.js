@@ -7,9 +7,9 @@ export function FazerComentario({ usuarioLogado, comentar }) {
   const [comentario, setComentario] = useState('');
 
   const aoDigitar = (e) => {
-    const valorInput = e.target.value.trim();
+    const valorInput = e.target.value;
     setComentario(valorInput);
-    setLinhas(valorInput.length > 0 ? 2 : 1);
+    setLinhas(valorInput.length > 38 ? 2 : 1);
   };
 
   const aoPressionarTecla = (e) => {
@@ -18,11 +18,13 @@ export function FazerComentario({ usuarioLogado, comentar }) {
     }
   };
 
-  const manipularComentario = () => {
+  const manipularComentario = async () => {
     if (comentario.trim().length === 0 || !comentar) {
       return;
     }
+    await comentar(comentario);
   };
+
   return (
     <span className='containerFazerComentario'>
       <Avatar src={usuarioLogado.avatar} />
@@ -31,8 +33,7 @@ export function FazerComentario({ usuarioLogado, comentar }) {
         onChange={aoDigitar}
         onKeyDown={aoPressionarTecla}
         value={comentario}
-        placeholder='Insira um comentário'>
-      </textarea>
+        placeholder='Insira um comentário'></textarea>
       <button
         type='button'
         className='btnFeed desktop'

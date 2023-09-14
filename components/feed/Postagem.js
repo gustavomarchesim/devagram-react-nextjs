@@ -10,13 +10,17 @@ import imagemCurtido from '../../public/images/coracao_fill.svg';
 import imagemComentario from '../../public/images/comentario.svg';
 import imagemComentado from '../../public/images/comentario_fill.svg';
 
+import FeedService from '../../services/FeedService';
+const feedService = new FeedService();
 export default function Postagem({
+  id,
   usuario,
   fotoDoPost,
   descricao,
   comentarios,
   usuarioLogado,
 }) {
+  const [comentariosPostagem, setComentariosPostagem] = useState(comentarios);
   const [mostrarMais, setMostrarMais] = useState(false);
   const [mostrarComentario, setMostrarComentario] = useState(false);
   const [mostrarCurtida, setMostrarCurtida] = useState(true);
@@ -32,8 +36,21 @@ export default function Postagem({
     setMostrarCurtida(!mostrarCurtida);
   };
 
-  const comentar = (comentario) => {
-    console.log('comentario');
+  const comentar = async (comentario) => {
+    try {
+      await feedService.adicionarComentario(id, comentario);
+      setMostrarComentario(false);
+      setComentariosPostagem([
+        ...comentariosPostagem,
+        {
+          nome: usuarioLogado.nome,
+          mensagem: comentario,
+        },
+      ]);
+    } catch (error) {
+      alert(`Erro ao comentar! ` + error?.response?.data?.erro);
+    }
+    return Promise.resolve(true);
   };
 
   return (
@@ -72,7 +89,7 @@ export default function Postagem({
           />
 
           <span className='qntCurtidas'>
-            Curtido por <strong>32 pessoas!</strong>
+            Curtido por <strong>40000 pessoas!</strong>
           </span>
         </div>
 
@@ -91,7 +108,7 @@ export default function Postagem({
         </div>
 
         <div className='comentariosPostagem'>
-          {comentarios.map((comentario, i) => (
+          {comentariosPostagem.map((comentario, i) => (
             <div
               className='comentario'
               key={i}>
