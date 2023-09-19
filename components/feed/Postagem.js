@@ -12,18 +12,20 @@ import imagemComentado from '../../public/images/comentario_fill.svg';
 
 import FeedService from '../../services/FeedService';
 const feedService = new FeedService();
+
 export default function Postagem({
   id,
   usuario,
   fotoDoPost,
   descricao,
   comentarios,
+  curtidas,
   usuarioLogado,
 }) {
   const [comentariosPostagem, setComentariosPostagem] = useState(comentarios);
+  const [curtidasPostagem, setCurtidasPostagem] = useState(curtidas);
   const [mostrarMais, setMostrarMais] = useState(false);
   const [mostrarComentario, setMostrarComentario] = useState(false);
-  const [mostrarCurtida, setMostrarCurtida] = useState(true);
 
   const handleClick = () => {
     setMostrarComentario(!mostrarComentario);
@@ -31,10 +33,6 @@ export default function Postagem({
 
   const texto = descricao;
   const textoExibido = mostrarMais ? texto : `${texto.substring(0, 93)}`;
-
-  const handleCurtida = () => {
-    setMostrarCurtida(!mostrarCurtida);
-  };
 
   const comentar = async (comentario) => {
     try {
@@ -51,6 +49,31 @@ export default function Postagem({
       alert(`Erro ao comentar! ` + error?.response?.data?.erro);
     }
     return Promise.resolve(true);
+  };
+
+  const usuarioLogadoCurtiu = () => {
+    return curtidasPostagem.includes(usuarioLogado.id);
+  };
+
+  const obterImagemCurtida = () => {
+    return usuarioLogadoCurtiu() ? imagemCurtido : imagemCurtida;
+  };
+
+  const curtir = async () => {
+    try {
+      await feedService.adicionarCurtida(id);
+      if (usuarioLogadoCurtiu()) {
+        setCurtidasPostagem(
+          curtidasPostagem.filter(
+            (idUsuarioQueCurtiu) => idUsuarioQueCurtiu !== usuarioLogado.id
+          )
+        );
+      } else {
+        setCurtidasPostagem([...curtidasPostagem, usuarioLogado.id]);
+      }
+    } catch (error) {
+      alert(`Erro ao curtir! ` + error?.response?.data?.erro);
+    }
   };
 
   return (
@@ -73,11 +96,11 @@ export default function Postagem({
         <div className='acoesRodapePostagem'>
           <Image
             className='imagemCurtida'
-            src={mostrarCurtida ? imagemCurtida : imagemCurtido}
+            src={obterImagemCurtida()}
             alt='icone Curtir'
             width={20}
             height={20}
-            onClick={handleCurtida}
+            onClick={curtir}
           />
           <Image
             className='imagemComentario'
@@ -87,9 +110,8 @@ export default function Postagem({
             height={20}
             onClick={handleClick}
           />
-
           <span className='qntCurtidas'>
-            Curtido por <strong>40000 pessoas!</strong>
+            Curtido por <strong>{curtidasPostagem.length} pessoa(s)!</strong>
           </span>
         </div>
 

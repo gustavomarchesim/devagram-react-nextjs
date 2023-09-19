@@ -7,7 +7,7 @@ import UserService from '../../services/UserService';
 const feedService = new FeedService();
 const userService = new UserService();
 
-export function Feed() {
+export default function Feed() {
   const usuarioLogado = userService.obterInformacoesDoUsuarioLogado();
   const [listaPostagens, setListaPostagens] = useState([]);
   useEffect(async () => {

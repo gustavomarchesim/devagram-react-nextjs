@@ -37,7 +37,7 @@ export function FazerComentario({ usuarioLogado, comentar }) {
       <button
         type='button'
         className='btnFeed desktop'
-        onClick={() => console.log('Publicar')}>
+        onClick={manipularComentario}>
         Publicar
       </button>
     </span>

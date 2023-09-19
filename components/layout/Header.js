@@ -11,9 +11,15 @@ import ResultadoPesquisa from './ResultadoPesquisa';
 const userService = new UserService();
 
 export default function Header() {
+  const usuarioLogado = userService.obterInformacoesDoUsuarioLogado();
   const [resultadoPesquisa, setResultadoPesquisa] = useState([]);
   const [termoPesquisado, setTermoPesquisado] = useState('');
   const router = useRouter();
+
+  let cabecalhoClassName = '';
+  if (window && window.location.pathname !== '/') {
+    cabecalhoClassName = 'desktop';
+  }
 
   const aoPesquisar = async (e) => {
     setTermoPesquisado(e.target.value);
@@ -38,7 +44,7 @@ export default function Header() {
   };
 
   return (
-    <header className='headerPrincipal'>
+    <header className={`headerPrincipal ${cabecalhoClassName}`}>
       <div className='conteudoHeaderPrincipal'>
         <div className='logoHeaderPrincipal'>
           <Image
@@ -62,7 +68,10 @@ export default function Header() {
             onChange={aoPesquisar}
           />
         </div>
-        <Navbar className='desktop' />
+        <Navbar
+          className='desktop'
+          usuarioLogado={usuarioLogado}
+        />
       </div>
       {resultadoPesquisa.length > 0 && (
         <div className='resultadoPesquisaContainer'>

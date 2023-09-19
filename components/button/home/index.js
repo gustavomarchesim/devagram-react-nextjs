@@ -1,4 +1,4 @@
-import { Feed } from '../../feed';
+import Feed from '../../feed';
 import comAutorizacao from '../../../hoc/comAutorizacao';
 
 function Home({ infoUsarioLogado }) {

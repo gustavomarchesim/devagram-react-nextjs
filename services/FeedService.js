@@ -14,4 +14,8 @@ export default class FeedService extends HttpService {
       comentario,
     });
   }
+
+  async adicionarCurtida(idPostagem) {
+    return this.put(`/like?id=${idPostagem}`);
+  }
 }
