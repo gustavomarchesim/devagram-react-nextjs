@@ -35,4 +35,41 @@
       }
     }
   }
+  @media screen and (min-width: $desktopBreakpoint) {
+    .cabecalhoPerfil {
+      .cabecalhoAcoes {
+        > span {
+          display: none !important;
+        }
+        h3 {
+          font-size: 18px;
+        }
+      }
+      .statusPerfil {
+        padding: 16px 24px;
+        .avatar {
+          width: 120px;
+          height: 120px;
+          margin-right: 40px;
+        }
+        .btn {
+          padding: 10px;
+          font-size: 16px;
+          border-radius: 4px;
+        }
+        .statusContainer {
+          .status {
+            .statusDados {
+              > span {
+                font-size: 16px;
+              }
+              > strong {
+                font-size: 18px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
