@@ -16,15 +16,15 @@ export default function cabecalhoPerfil({ usuario }) {
         <div className='statusContainer'>
           <div className='status'>
             <div className='statusDados'>
-              <strong>15</strong>
+              <strong>{usuario.publicacoes}</strong>
               <span>Publicações</span>
             </div>
             <div className='statusDados'>
-              <strong>120</strong>
+              <strong>{usuario.seguidores}</strong>
               <span>Seguidores</span>
             </div>
             <div className='statusDados'>
-              <strong>69</strong>
+              <strong>{usuario.seguidores}</strong>
               <span>Seguindo</span>
             </div>
           </div>
