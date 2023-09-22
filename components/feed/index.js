@@ -7,18 +7,23 @@ import UserService from '../../services/UserService';
 const feedService = new FeedService();
 const userService = new UserService();
 
-export default function Feed() {
+export default function Feed({ usuarioPerfil }) {
   const usuarioLogado = userService.obterInformacoesDoUsuarioLogado();
   const [listaPostagens, setListaPostagens] = useState([]);
+
   useEffect(async () => {
-    const { data } = await feedService.carregarPostagens();
+    const { data } = await feedService.carregarPostagens(usuarioPerfil?._id);
+
+    if (!usuarioLogado) {
+      return;
+    }
 
     const postagensFormatadas = data.map((postagem) => ({
       id: postagem._id,
       usuario: {
         id: postagem.idUsuario,
-        nome: postagem.usuario.nome,
-        avatar: postagem.usuario.avatar,
+        nome: postagem?.usuario?.nome || usuarioPerfil?.nome,
+        avatar: postagem?.usuario?.avatar || usuarioPerfil?.avatar,
       },
       fotoDoPost: postagem.foto,
       descricao: postagem.descricao,
@@ -30,7 +35,7 @@ export default function Feed() {
     }));
 
     setListaPostagens(postagensFormatadas);
-  }, []);
+  }, [usuarioPerfil]);
 
   return (
     <div className='feedContainer larguraCentralDesktop'>

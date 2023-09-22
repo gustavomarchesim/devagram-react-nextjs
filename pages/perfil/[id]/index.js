@@ -8,10 +8,9 @@ import CabecalhoPerfil from '../../../components/cabecalhoPerfil';
 
 const userService = new UserService();
 
-function Perfil({ usuarioLogado }) {
+function Perfil() {
   const [usuario, setUsuario] = useState({});
   const router = useRouter();
-
   const obterUsuario = async (idUsuario) => {
     try {
       const { data } = await userService.buscarUsuario(idUsuario);
@@ -20,7 +19,7 @@ function Perfil({ usuarioLogado }) {
       alert('Erro ao buscar usuário!');
     }
   };
-  
+
   useEffect(async () => {
     if (!router.query.id) {
       return;
@@ -32,7 +31,7 @@ function Perfil({ usuarioLogado }) {
   return (
     <div className='paginaPerfil'>
       <CabecalhoPerfil usuario={usuario} />
-      <Feed usuarioLogado={usuarioLogado} />
+      <Feed usuarioPerfil={usuario} />
     </div>
   );
 }
