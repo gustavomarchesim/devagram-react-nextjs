@@ -7,6 +7,7 @@ export default function cabecalhoComAcoes({
   aoClicarAcaoEsquerda,
   titulo,
   elementoDireita,
+  aoClicarElementoDireita,
 }) {
   return (
     <div className={`cabecalhoAcoes ${className}`}>
@@ -21,7 +22,7 @@ export default function cabecalhoComAcoes({
       ) : (
         textoEsquerda !== null && (
           <span
-            className='cabecalhoAcoesTextoEsquerda'
+            className='elementoEsquerda'
             onClick={aoClicarAcaoEsquerda}>
             {textoEsquerda}
           </span>
@@ -30,7 +31,11 @@ export default function cabecalhoComAcoes({
 
       <h3>{titulo}</h3>
 
-      {elementoDireita && <button type='button'>{elementoDireita}</button>}
+      <div
+        className='elementoDireita'
+        onClick={aoClicarElementoDireita}>
+        {elementoDireita || null}
+      </div>
     </div>
   );
 }

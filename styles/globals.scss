@@ -87,6 +87,13 @@ body {
   }
 }
 
+.linhaDivisoria {
+  margin: 0;
+  border: none;
+  background-color: $cinza1;
+  height: 0.5px;
+}
+
 @import '../public/fonts/fonts.scss';
 @import '../components/button/button.scss';
 @import '../styles/paginaPublica.scss';

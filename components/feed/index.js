@@ -12,6 +12,7 @@ export default function Feed({ usuarioPerfil }) {
   const [listaPostagens, setListaPostagens] = useState([]);
 
   useEffect(async () => {
+    setListaPostagens([]);
     const { data } = await feedService.carregarPostagens(usuarioPerfil?._id);
 
     if (!usuarioLogado) {

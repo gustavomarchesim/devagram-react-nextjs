@@ -16,6 +16,14 @@ export default class UserService extends HttpService {
     }
   }
 
+  async Logout() {
+    localStorage.removeItem('nome');
+    localStorage.removeItem('email');
+    localStorage.removeItem('token');
+    localStorage.removeItem('id');
+    localStorage.removeItem('avatar');
+  }
+
   async Cadastro(dados) {
     return this.post('/cadastro', dados);
   }
@@ -30,6 +38,10 @@ export default class UserService extends HttpService {
 
   async alternarSeguidores(idUsuario) {
     return this.put(`/seguir?id=${idUsuario}`);
+  }
+
+  async alterarUsuario(dados) {
+    return this.put(`/usuario`, dados);
   }
 
   estaAutenticado() {

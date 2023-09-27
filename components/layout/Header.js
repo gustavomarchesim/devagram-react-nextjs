@@ -12,6 +12,7 @@ const userService = new UserService();
 
 export default function Header() {
   const usuarioLogado = userService.obterInformacoesDoUsuarioLogado();
+
   const [resultadoPesquisa, setResultadoPesquisa] = useState([]);
   const [termoPesquisado, setTermoPesquisado] = useState('');
   const router = useRouter();

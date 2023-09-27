@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
 import Avatar from '../avatar';
 import Button from '../button';
 import CabecalhoComAcoes from '../../components/cabecalhoComAcoes';
 
 import imagemSetaEsquerda from '../../public/images/seta_Esquerda.svg';
+import imagemLogout from '../../public/images/logout.svg';
 import UserService from '../../services/UserService';
-import { useRouter } from 'next/router';
-
 const userService = new UserService();
-export default function cabecalhoPerfil({ usuario }) {
+
+export default function cabecalhoPerfil({ usuario, estaNoPerfilPessoal }) {
   const [estaSeguindoOUsuario, setEstaSeguindoOUsuario] = useState(false);
   const [quantidadeSeguidores, setQuantidadeSeguidores] = useState(0);
   const router = useRouter();
+
   useEffect(() => {
     if (!usuario) {
       return;
@@ -21,6 +24,9 @@ export default function cabecalhoPerfil({ usuario }) {
   }, [usuario]);
 
   const obterTextoBotao = () => {
+    if (estaNoPerfilPessoal) {
+      return 'Editar perfil';
+    }
     if (estaSeguindoOUsuario) {
       return 'Deixar de Seguir';
     }
@@ -28,13 +34,17 @@ export default function cabecalhoPerfil({ usuario }) {
   };
 
   const obterCorDoBotao = () => {
-    if (estaSeguindoOUsuario) {
+    if (estaSeguindoOUsuario || estaNoPerfilPessoal) {
       return 'outline';
     }
     return 'primaria';
   };
 
   const manipularBotaoSeguir = async () => {
+    if (estaNoPerfilPessoal) {
+      return router.push('/perfil/editar');
+    }
+
     try {
       await userService.alternarSeguidores(usuario._id);
       setQuantidadeSeguidores(
@@ -52,12 +62,28 @@ export default function cabecalhoPerfil({ usuario }) {
     router.back();
   };
 
+  const logout = () => {
+    userService.Logout();
+    router.push('/');
+  };
+
   return (
     <div className='cabecalhoPerfil larguraCentralDesktop'>
       <CabecalhoComAcoes
-        imagemEsquerda={imagemSetaEsquerda}
+        imagemEsquerda={estaNoPerfilPessoal ? null : imagemSetaEsquerda}
         aoClicarAcaoEsquerda={aoClicarSetaEsquerda}
         titulo={usuario.nome}
+        elementoDireita={
+          estaNoPerfilPessoal && (
+            <Image
+              src={imagemLogout}
+              alt='Imagem da esquerda'
+              onClick={logout}
+              width={24}
+              height={24}
+            />
+          )
+        }
       />
       <div className='statusPerfil'>
         <Avatar src={usuario.avatar} />

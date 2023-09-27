@@ -14,6 +14,7 @@ import imagemUsuarioFill from '../../public/images/usuario_fill.svg';
 const userService = new UserService();
 export default function Navbar({ className }) {
   const usuarioLogado = userService.obterInformacoesDoUsuarioLogado();
+
   const router = useRouter();
   const [activeTab, setActiveTab] = useState(router.pathname);
 
@@ -26,12 +27,27 @@ export default function Navbar({ className }) {
     router.push(tab);
   };
 
+  const obterImagemUsuario = () => {
+    const asPath = router.asPath;
+    if (
+      asPath.endsWith(`/perfil/${usuarioLogado.id}`) ||
+      asPath.endsWith('perfil/editar')
+    ) {
+      return imagemUsuarioFill;
+    }
+    return imagemUsuario;
+  };
+
   return (
     <nav className={`barraNavegacaoPrincipal ${className}`}>
       <ul>
         <li onClick={() => handleTabClick('/')}>
           <Image
-            src={activeTab === '/' ? imagemHomeFill : imagemHome}
+            src={
+              activeTab === '/' || activeTab === `/perfil/`
+                ? imagemHomeFill
+                : imagemHome
+            }
             alt='Logo Home'
             width={24}
             height={24}
@@ -49,11 +65,7 @@ export default function Navbar({ className }) {
         </li>
         <li onClick={() => handleTabClick(`/perfil/${usuarioLogado.id}`)}>
           <Image
-            src={
-              activeTab.startsWith(`/perfil/${usuarioLogado.id}`)
-                ? imagemUsuarioFill
-                : imagemUsuario
-            }
+            src={obterImagemUsuario()}
             alt='Logo Usuário'
             width={24}
             height={24}
