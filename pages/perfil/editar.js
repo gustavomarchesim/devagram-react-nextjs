@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
@@ -6,11 +6,11 @@ import UserService from 'services/UserService';
 
 import CabecalhoComAcoes from 'components/cabecalhoComAcoes';
 import comAutorizacao from '../../hoc/comAutorizacao';
-import Avatar from 'components/avatar';
 import UploadImagem from 'components/upload';
 
 import imagemAvatarPadrao from '../../public/images/avatar.svg';
 import imagemLimpar from '../../public/images/remove.svg';
+import { validarNome } from 'utils/validadores';
 
 const userService = new UserService();
 
@@ -20,12 +20,44 @@ function EditarPerfil({ usuarioLogado }) {
   const [nome, setNome] = useState('');
   const router = useRouter();
 
+  useEffect(() => {
+    if (!usuarioLogado) {
+      return;
+    }
+    setNome(usuarioLogado.nome);
+    setAvatar({
+      preview: usuarioLogado.avatar,
+    });
+  }, []);
+
+  const atualizarPerfil = async () => {
+    try {
+      if (!validarNome(nome)) {
+        alert('Insira pelo menos dois caracteres!');
+        return;
+      }
+      const corpoReqAtualizar = new FormData();
+      corpoReqAtualizar.append('nome', nome);
+
+      if (avatar.arquivo) {
+        corpoReqAtualizar.append('file', avatar.arquivo);
+        localStorage.setItem('avatar', avatar.preview);
+      }
+
+      await userService.alterarUsuario(corpoReqAtualizar);
+      localStorage.setItem('nome', nome);
+      router.push(`/perfil/${usuarioLogado.id}`);
+    } catch (error) {
+      alert('Erro ao atualizar perfil!');
+    }
+  };
+
   const acaoElementoEsquerdo = () => {
     router.back();
   };
 
   const abrirSeletorDeArquivos = () => {
-    console.log('Abrir seletor');
+    inputAvatar?.click();
   };
 
   return (
@@ -37,9 +69,7 @@ function EditarPerfil({ usuarioLogado }) {
             textoEsquerda={'Cancelar'}
             aoClicarAcaoEsquerda={acaoElementoEsquerdo}
             elementoDireita={'Concluir'}
-            aoClicarElementoDireita={() =>
-              console.log('Clique elemento direita')
-            }
+            aoClicarElementoDireita={atualizarPerfil}
           />
 
           <hr className='linhaDivisoria' />
