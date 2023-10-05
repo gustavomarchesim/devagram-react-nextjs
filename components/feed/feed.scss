@@ -1,7 +1,7 @@
 .feedContainer {
   padding-bottom: 60px;
   background-color: $branco;
-  
+
   .avatar {
     width: 32px;
     height: 32px;
@@ -65,6 +65,10 @@
           color: $corPrimaria03;
           cursor: pointer;
         }
+      }
+      .comentariosPostagem {
+        max-height: 100px;
+        overflow-y: auto;
       }
     }
     .containerFazerComentario {

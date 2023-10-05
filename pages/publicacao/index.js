@@ -42,8 +42,8 @@ function Publicacao() {
 
   const publicar = async () => {
     try {
-      if (!validarPostagem) {
-        alert('A postagem deve conter no minimo 3 caractéres e uma imagem!');
+      if (!validarPostagem()) {
+        alert('A postagem deve conter no minimo 3 caracteres e uma imagem!');
         return;
       }
 
