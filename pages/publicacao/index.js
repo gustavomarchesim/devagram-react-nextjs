@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
+import FeedService from 'services/FeedService';
+const feedService = new FeedService();
+
 import comAutorizacao from 'hoc/comAutorizacao';
 
 import Button from 'components/button';
@@ -12,7 +15,7 @@ import imagemSeta from '../../public/images/seta_Esquerda.svg';
 
 function Publicacao() {
   const [imagem, setImagem] = useState();
-  const [descricao, SetDescricao] = useState('');
+  const [descricao, setDescricao] = useState('');
   const [inputImagem, setInputImagem] = useState();
 
   const router = useRouter();
@@ -20,6 +23,23 @@ function Publicacao() {
   const cancelarImagem = () => {
     inputImagem.value = null;
     setImagem(null);
+  };
+
+  const publicar = async () => {
+    try {
+      const corpoReqPostagem = new FormData();
+      corpoReqPostagem.append('descricao', descricao);
+
+      if (imagem?.arquivo) {
+        corpoReqPostagem.append('file', imagem.arquivo);
+      }
+
+      await feedService.publicarPostagem(corpoReqPostagem);
+
+      router.push('/');
+    } catch (error) {
+      alert('Erro ao concluir postagem!');
+    }
   };
 
   return (
@@ -30,6 +50,7 @@ function Publicacao() {
             className={imagem ? 'imagemPrincipal' : ''}
             titulo={'Nova Publicação'}
             elementoDireita={imagem ? 'Compartilhar' : ''}
+            aoClicarElementoDireita={publicar}
             imagemEsquerda={imagem ? imagemSeta : null}
             aoClicarAcaoEsquerda={cancelarImagem}
           />
@@ -60,7 +81,7 @@ function Publicacao() {
                   rows={3}
                   placeholder='Insira a descrição...'
                   value={descricao}
-                  onChange={(e) => SetDescricao(e.target.value)}
+                  onChange={(e) => setDescricao(e.target.value)}
                 />
               )}
 

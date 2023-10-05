@@ -1,10 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 export default function UploadImagem({
-  className = "",
+  className = '',
   setImagem,
   imagemPreview,
-  imagemPreviewClassName = "",
+  imagemPreviewClassName = '',
   aoSetarReferencia,
 }) {
   const refInput = useRef(null);
@@ -27,6 +27,19 @@ export default function UploadImagem({
     }
 
     const arquivo = refInput?.current?.files[0];
+    obterUrlDaImagemEAtualizarOArquivo(arquivo);
+  };
+
+  const aoSoltarAImagem = (e) => {
+    e.preventDefault();
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      const arquivo = e.dataTransfer.files[0];
+      obterUrlDaImagemEAtualizarOArquivo(arquivo);
+    }
+    console.log('ao soltar imagem');
+  };
+
+  const obterUrlDaImagemEAtualizarOArquivo = (arquivo) => {
     const fileReader = new FileReader();
     fileReader.readAsDataURL(arquivo);
     fileReader.onloadend = () => {
@@ -41,20 +54,21 @@ export default function UploadImagem({
     <div
       className={`uploadImagemContainer ${className}`}
       onClick={abrirSeletorArquivos}
-    >
+      onDragOver={(e) => e.preventDefault()}
+      onDrop={aoSoltarAImagem}>
       {imagemPreview && (
-        <div className="imagemPreviewContainer">
+        <div className='imagemPreviewContainer'>
           <img
             src={imagemPreview}
-            alt="Imagem Preview"
+            alt='Imagem Preview'
             className={imagemPreviewClassName}
           />
         </div>
       )}
       <input
-        type="file"
-        className="oculto"
-        accept="image/*"
+        type='file'
+        className='oculto'
+        accept='image/*'
         ref={refInput}
         onChange={aoAlterarImagem}
       />
