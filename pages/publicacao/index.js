@@ -13,6 +13,9 @@ import UploadImagem from 'components/upload';
 import imagemPub from '../../public/images/imagemPreview.svg';
 import imagemSeta from '../../public/images/seta_Esquerda.svg';
 
+const limiteDaDescricao = 255;
+const minimoDescricao = 3;
+
 function Publicacao() {
   const [imagem, setImagem] = useState();
   const [descricao, setDescricao] = useState('');
@@ -25,14 +28,28 @@ function Publicacao() {
     setImagem(null);
   };
 
+  const validarDescricao = (e) => {
+    const valorAtual = e.target.value;
+    if (valorAtual.lenght >= limiteDaDescricao) {
+      return;
+    }
+    setDescricao(valorAtual);
+  };
+
+  const validarPostagem = () => {
+    return descricao.length >= minimoDescricao && imagem?.arquivo;
+  };
+
   const publicar = async () => {
     try {
+      if (!validarPostagem) {
+        alert('A postagem deve conter no minimo 3 caractéres e uma imagem!');
+        return;
+      }
+
       const corpoReqPostagem = new FormData();
       corpoReqPostagem.append('descricao', descricao);
-
-      if (imagem?.arquivo) {
-        corpoReqPostagem.append('file', imagem.arquivo);
-      }
+      corpoReqPostagem.append('file', imagem.arquivo);
 
       await feedService.publicarPostagem(corpoReqPostagem);
 
@@ -81,7 +98,7 @@ function Publicacao() {
                   rows={3}
                   placeholder='Insira a descrição...'
                   value={descricao}
-                  onChange={(e) => setDescricao(e.target.value)}
+                  onChange={validarDescricao}
                 />
               )}
 
