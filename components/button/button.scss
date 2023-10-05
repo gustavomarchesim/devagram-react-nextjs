@@ -9,6 +9,11 @@
   border: solid 1px $corPrimaria;
 }
 
+@mixin buttonPublicacao {
+  background-color: $corPrimaria03;
+  color: $branco;
+}
+
 .btn {
   width: 100%;
   border: none;
@@ -29,6 +34,10 @@
     &:hover {
       @include buttonPrimario;
     }
+  }
+
+  &.publicacao {
+    @include buttonPublicacao;
   }
 
   &:disabled {

@@ -1,4 +1,5 @@
 .paginaCadastro {
+  background-color: $branco;
   .logoContainer {
     display: none;
   }
@@ -22,7 +23,7 @@
 
     &::after {
       position: absolute;
-      content: url("/images/camera.svg");
+      content: url('/images/camera.svg');
       right: 0px;
       left: 83px;
       bottom: -3px;

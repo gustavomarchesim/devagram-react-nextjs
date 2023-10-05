@@ -18,4 +18,8 @@ export default class FeedService extends HttpService {
   async adicionarCurtida(idPostagem) {
     return this.put(`/like?id=${idPostagem}`);
   }
+
+  async publicarPostagem(dados) {
+    return this.post(`/publicacao`, dados);
+  }
 }

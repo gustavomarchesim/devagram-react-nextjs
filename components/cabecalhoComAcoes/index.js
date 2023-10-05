@@ -14,6 +14,7 @@ export default function cabecalhoComAcoes({
       {imagemEsquerda ? (
         <Image
           src={imagemEsquerda}
+          className='imagemEsq'
           alt='Imagem da esquerda'
           onClick={aoClicarAcaoEsquerda}
           width={24}
@@ -29,7 +30,7 @@ export default function cabecalhoComAcoes({
         )
       )}
 
-      <h3>{titulo}</h3>
+      <h3 className='tituloPrincipal'>{titulo}</h3>
 
       <div
         className='elementoDireita'

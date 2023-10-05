@@ -1,0 +1,82 @@
+.paginaPublicacao {
+  height: 90vh;
+  .paginaPublicacaoContainer {
+    .cabecalhoAcoes {
+      align-items: center;
+
+      &.imagemPrincipal {
+        .tituloPrincipal {
+          padding-left: 17%;
+        }
+      }
+
+      .elementoEsquerda {
+        font-size: 12px;
+        font-family: $fontRegular;
+        cursor: pointer;
+      }
+
+      .elementoDireita {
+        font-size: 12px;
+        font-family: $fontBold;
+        color: $corPrimaria;
+        cursor: pointer;
+      }
+    }
+
+    .conteudoPaginaPublicacao {
+      .primeiraEtapa {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .paginaPublicacaoSpan {
+          font-size: 16px;
+          font-family: $fontRegular;
+          margin-bottom: 40px;
+        }
+        .uploadImagemContainer {
+          .previewImagemPublicacao {
+            width: 150px;
+            height: 150px;
+            margin: 30px auto;
+            object-fit: cover;
+            text-align: center;
+          }
+
+          .previewImagemSelecionada {
+            width: 350px !important;
+            height: 350px !important;
+            margin: 30px auto;
+            object-fit: cover;
+            text-align: center;
+          }
+
+          .imagemPreviewContainer {
+            > img {
+              width: 100%;
+            }
+          }
+        }
+        .btn {
+          padding: 12px;
+          width: 80%;
+          margin: auto;
+        }
+
+        textarea {
+          width: 90%;
+          resize: none;
+          border: none;
+          outline: none;
+          margin-bottom: 10px;
+          margin-top: -20px;
+        }
+        @media screen and (min-width: $desktopBreakpoint) {
+          textarea {
+            width: 70%;
+          }
+        }
+      }
+    }
+  }
+}

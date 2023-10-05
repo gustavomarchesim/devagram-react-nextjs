@@ -43,11 +43,7 @@ export default function Navbar({ className }) {
       <ul>
         <li onClick={() => handleTabClick('/')}>
           <Image
-            src={
-              activeTab === '/' || activeTab === `/perfil/`
-                ? imagemHomeFill
-                : imagemHome
-            }
+            src={activeTab === '/' ? imagemHomeFill : imagemHome}
             alt='Logo Home'
             width={24}
             height={24}
@@ -56,7 +52,9 @@ export default function Navbar({ className }) {
         <li onClick={() => handleTabClick('/publicacao')}>
           <Image
             src={
-              activeTab === 'publicacao' ? imagemAdicionarFill : imagemAdicionar
+              activeTab === '/publicacao'
+                ? imagemAdicionarFill
+                : imagemAdicionar
             }
             alt='Logo publicacao'
             width={24}
